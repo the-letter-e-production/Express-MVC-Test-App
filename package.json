@@ -4,7 +4,7 @@
   "description": "test app",
   "main": "app.js",
   "dependencies": {
-    "express_mvc": "^1.0.0"
+    "express_mvc": "git+https://github.com/the-letter-e-production/Express-MVC.git"
   },
   "devDependencies": {},
   "scripts": {
