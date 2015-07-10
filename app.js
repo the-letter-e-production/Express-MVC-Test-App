@@ -1,14 +1,25 @@
 var ExpressMVC = require('express_mvc');
-var emvc = new ExpressMVC({});
+var emvc = new ExpressMVC({
+    access_logging: true
+});
 var router = new emvc.Router;
     router.addRoute('Home', 'GET', '/', function(req, res){
         console.log('testing the route');
         res.send('It worked!');
     });
-    emvc.Listen(router);
-var router_two = new emvc.Router;
-    router_two.addRoute('Home', 'GET', '/', function(req, res){
-        console.log('testing the other route');
-        res.send('It worked twice!');
+    router.addRoute('About', 'GET', '/about', function(req, res){
+        res.send('About worked!');
     });
-    emvc.Listen(router_two, 3001);
+
+var app = emvc.App;
+
+app.use(function(req, res, next){
+    if( req.headers.auth == '1234' ){
+        next();
+    }else{
+        res.send('Failed to authenticate!');
+    }
+});
+
+app.listen(router)
+
